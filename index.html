@@ -22,9 +22,9 @@
           var streamsLength = streams.home.length;
           while (publishedTweets < streamsLength) {
             var tweet = streams.home[publishedTweets];
-            var date = ($.format.date(tweet.created_at, "MMMM d yyyy h:mm a"));
+            var date = ($.format.date(tweet.created_at, "MMMM d h:mm a"));
             var $tweet = $('<div></div>');
-            $tweet.html('<div class="tweet"><h4 class="user-name"><a href="#">@' + tweet.user + '</a></h4><p class="tweet-message">' + tweet.message + '</p><p class="tweet-date">' + date + '</p></div>');
+            $tweet.html('<div class="tweet"><h4 class="user-name"><a href="#">@' + tweet.user + '</a></h4><p class="tweet-date">' + date + '</p><p class="tweet-message">' + tweet.message + '</p></div>');
             $tweet.prependTo($feed);
             publishedTweets += 1;            
           }
@@ -45,9 +45,7 @@
 
     </script>
     
-    <div id="feed">
-      
-    </div>
+    <div id="feed"></div>
     
   </body>
 
