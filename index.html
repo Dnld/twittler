@@ -12,16 +12,31 @@
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
-
+        
+        var publishedTweets = 0;
+        
+        var appendNewTweetToFeed = function() {
+          var streamsLength = streams.home.length;
+          while (publishedTweets < streamsLength) {
+            var tweet = streams.home[publishedTweets];
+            var $tweet = $('<div></div>');
+            $tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.prependTo($body);
+            publishedTweets += 1;            
+          }
+        };
+        
+        setInterval(appendNewTweetToFeed, 1000);
+        
+        // var index = streams.home.length - 1;
+        // while(index >= 0){
+        //   var tweet = streams.home[index];
+        //   var $tweet = $('<div></div>');
+        //   $tweet.text('@' + tweet.user + ': ' + tweet.message);
+        //   $tweet.appendTo($body);
+        //   index -= 1;
+        // }
+        
       });
 
     </script>
