@@ -20,7 +20,7 @@
           while (publishedTweets < streamsLength) {
             var tweet = streams.home[publishedTweets];
             var $tweet = $('<div></div>');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.html('<div class="tweet"><h4 class="user-name">@' + tweet.user + '</h4><p class="tweet-message">' + tweet.message + '</p><p class="tweet-date">' + tweet.created_at + '</p></div>');
             $tweet.prependTo($body);
             publishedTweets += 1;            
           }
