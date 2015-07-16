@@ -20,7 +20,7 @@
           var streamsLength = streams.home.length;
           while (publishedTweets < streamsLength) {
             var tweet = streams.home[publishedTweets];
-            var date = ($.format.date(tweet.created_at, "MMMM d yyyy h:mm p"));
+            var date = ($.format.date(tweet.created_at, "MMMM d yyyy h:mm a"));
             var $tweet = $('<div></div>');
             $tweet.html('<div class="tweet"><h4 class="user-name">@' + tweet.user + '</h4><p class="tweet-message">' + tweet.message + '</p><p class="tweet-date">' + date + '</p></div>');
             $tweet.prependTo($body);
