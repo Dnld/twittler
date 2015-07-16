@@ -35,6 +35,9 @@
         
         $(document).on('click', '.user-name', function() {
           clearInterval(feedUpdateId);
+          var userName = $(this).closest('.tweet').find('.user-name')
+            .text().slice(1);
+          
         });
         
         
