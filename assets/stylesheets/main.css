@@ -81,7 +81,6 @@ body {
 .main {
     float:left;
     height:100%;
-    width: 76%;
     position: relative;
     top: 60px;
     overflow: hidden;
@@ -89,8 +88,8 @@ body {
 
 .left {
     float:left;
-    width: 22%;
-    margin-right: 2%;
+    width: 25%;
+    margin-right: 1%;
     height:100%;
     position: relative;
     top: 60px;
@@ -165,13 +164,25 @@ a:active {
 
 /*  
     ===============================================    
-    Return to Feed
+    Sidebar
     ===============================================
 */
 
+#sidebar {
+    padding-bottom: 10px;
+}
 
+#sidebar h2 {
+    font-size: 30px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
 
-
+#return-to-feed {
+    padding-top: 10px;
+    margin-left: 10px;
+    display: block;
+}
 
 
 
