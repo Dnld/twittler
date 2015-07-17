@@ -81,17 +81,16 @@ body {
 .main {
     float:left;
     height:100%;
-    width: 80%;
-    margin: 2%;
-    position: relative
+    width: 76%;
+    position: relative;
     top: 60px;
     overflow: hidden;
 }
 
 .left {
     float:left;
-    width:16%;
-    margin: 2%;
+    width: 22%;
+    margin-right: 2%;
     height:100%;
     position: relative;
     top: 60px;
@@ -121,7 +120,6 @@ a:active {
   width: 640px;
   height: 100%;
   position:relative;
-  top: 60px;
   margin: 0 auto;
   padding: 24px;
   margin-bottom: 60px;
