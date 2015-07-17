@@ -72,6 +72,18 @@ body {
     background-color: #C0DEED
 }
 
+.modal {
+    border: 2px solid #999999;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+}
+
+a,
+a:active {
+    text-decoration: none;
+    color: #0080FF;
+}
+
 /*  
     ===============================================    
     Feed
@@ -84,10 +96,7 @@ body {
   margin: 0 auto;
   position: relative;
   top: 40px;
-  border: 2px solid #999999;
-  border-radius: 10px;
   padding: 24px;
-  background-color: #FFFFFF;
   margin-bottom: 60px;
 }
 
@@ -129,10 +138,6 @@ body {
     color: #0080FF
 }
 
-.tweet a:hover {
-    color: #0000FF
-}
-
 /*  
     ===============================================    
     Return to Feed
@@ -144,20 +149,11 @@ body {
     top: 80px;
     width: 130px;
     left: 14%;
-    border: 2px solid #999999;
-    border-radius: 10px;
     padding: 10px;
-    background-color: #FFFFFF;
 }
 
 #return-to-feed a {
     position: center;
-    text-decoration: none;
-    color: #0080FF
-}
-
-#return-to-feed a:hover {
-    color: #0000FF
 }
 
 
