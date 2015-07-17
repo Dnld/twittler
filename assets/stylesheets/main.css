@@ -178,6 +178,16 @@ a:active {
     margin-top: 10px;
 }
 
+#sidebar textarea {
+    width: 89%;
+    height: 70px;
+    margin: 10px;
+    font-size: 14px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    color: #4C4C4C;
+}
+
 #return-to-feed {
     padding-top: 10px;
     margin-left: 10px;
