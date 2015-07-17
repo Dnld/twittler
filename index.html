@@ -32,8 +32,21 @@
           $tweet.prependTo($feed);
         };
         
+        // allows user to add tweet to streams object
+        var writeTweet = function(message){
+          if(!visitor){
+            throw new Error('set the global visitor property!');
+          }
+          var tweet = {};
+          tweet.user = visitor;
+          tweet.message = message;
+          tweet.created_at = new Date();
+          addTweet(tweet);
+        };
+
+        
         // initialize feed and run continuous update
-        visitor = 'visitor';
+        visitor = 'me';
         streams.users[visitor] = [];
         var $feed = $('#feed');
         var publishedTweets = 0;
@@ -75,10 +88,16 @@
         });
         
         // submit and publish user tweet
-        $('form').on('click', 'input', function() {
-          var tweetText = $(this).closest('form').find('textarea').val();
-          writeTweet(tweetText);
-          updateFeed();
+        $('#sidebar').on('click', 'button', function(event) {
+          var textarea = $(this).closest('#sidebar').find('textarea');
+          event.preventDefault();
+          tweetText = textarea.val();
+          if (tweetText.length > 140) {
+            alert("Tweet must be less than 140 characters");
+          } else {
+            writeTweet(tweetText);
+            textarea.val("What's happening?");
+          }
         });
         
       });
@@ -88,12 +107,10 @@
     <div class="container">
       <div id="sidebar" class="left modal"> 
 
-          <h2>@visitor</h2>
-
-          <form>
-            <textarea>What's happening?</textarea>
-            <input type="submit" name="submit" value="Tweet">       
-          </form>
+          <h2>@me</h2>
+            
+          <textarea>What's happening?</textarea>
+          <button>Tweet</button>
         
           <a id="return-to-feed" href="#">&#8592; Return to Feed</a>
 
