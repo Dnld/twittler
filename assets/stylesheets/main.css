@@ -180,12 +180,23 @@ a:active {
 
 #sidebar textarea {
     width: 89%;
-    height: 70px;
+    height: 80px;
     margin: 10px;
+    margin-bottom: 6px;
     font-size: 14px;
     border: 1px solid #999999;
     border-radius: 5px;
     color: #4C4C4C;
+}
+
+#sidebar input {
+    margin-left: 10px;
+    font-size: 14px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    color: white;
+    background-color: #0080FF;
+    padding: 6px 14px;
 }
 
 #return-to-feed {
