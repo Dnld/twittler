@@ -13,27 +13,34 @@
     <script>
 
       $(document).ready(function(){
-        var $feed = $('#feed');
-        $feed.html('');
-        $('#return-to-feed').hide();
-        
-        var publishedTweets = 0;
-        
-        var appendTweetToFeed = function() {
+
+        // prepends all tweets from data_generator to feed
+        var prependTweetToFeed = function() {
           var streamsLength = streams.home.length;
           while (publishedTweets < streamsLength) {
             var tweet = streams.home[publishedTweets];
-            var date = ($.format.date(tweet.created_at, "MMMM d h:mm a"));
-            var $tweet = $('<div></div>');
-            $tweet.html('<div class="tweet"><a class="user-name" href="#">@' + tweet.user + '</a><p class="tweet-date">' + date + '</p><p class="tweet-message">' + tweet.message + '</p></div>');
-            $tweet.prependTo($feed);
+            publishTweet(tweet);
             publishedTweets += 1;            
           }
+        };        
+        
+        // helper function to publish tweet to feed
+        var publishTweet = function(tweet) {
+          var date = ($.format.date(tweet.created_at, "MMMM d h:mm a"));
+          var $tweet = $('<div></div>');
+          $tweet.html('<div class="tweet"><a class="user-name" href="#">@' + tweet.user + '</a><p class="tweet-date">' + date + '</p><p class="tweet-message">' + tweet.message + '</p></div>');
+          $tweet.prependTo($feed);
         };
         
-        appendTweetToFeed();
-        feedUpdateId = setInterval(appendTweetToFeed, 3000);
+        // initialize feed and run continuous update
+        var $feed = $('#feed');
+        var publishedTweets = 0;
+        $feed.html('');
+        $('#return-to-feed').hide();
+        prependTweetToFeed();
+        feedUpdateId = setInterval(prependTweetToFeed, 3000);
         
+        // on user action, displays timeline of selected user
         $(document).on('click', '.user-name', function() {
           clearInterval(feedUpdateId);
           var userName = $(this).closest('.tweet').find('.user-name')
@@ -43,30 +50,27 @@
           
           var userPublishedTweets = 0;
           
-          var appendUserTweetToFeed = function() {
+          var prependUserTweetToFeed = function() {
             var userStreamLength = streams.users[userName].length;
             while (userPublishedTweets < userStreamLength) {
               var tweet = streams.users[userName][userPublishedTweets];
-              var date = ($.format.date(tweet.created_at, "MMMM d h:mm a"));
-              var $tweet = $('<div></div>');
-              $tweet.html('<div class="tweet"><a class="user-name" href="#">@' + tweet.user + '</a><p class="tweet-date">' + date + '</p><p class="tweet-message">' + tweet.message + '</p></div>');
-              $tweet.prependTo($feed);
+              publishTweet(tweet);
               userPublishedTweets += 1;            
             }
           };
           
-          appendUserTweetToFeed();
-          feedUpdateId = setInterval(appendUserTweetToFeed, 3000);    
+          prependUserTweetToFeed();
+          feedUpdateId = setInterval(prependUserTweetToFeed, 3000);    
         });
 
+        // on user action, returns to main feed and continuous update
         $(document).on('click', '#return-to-feed', function() {
           clearInterval(feedUpdateId);
           $('#return-to-feed').hide();
           $feed.html('');
-          
           publishedTweets = 0;
-          appendTweetToFeed();
-          feedUpdateId = setInterval(appendTweetToFeed, 3000);
+          prependTweetToFeed();
+          feedUpdateId = setInterval(prependTweetToFeed, 3000);
         });
         
       });
