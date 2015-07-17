@@ -72,6 +72,33 @@ body {
     background-color: #C0DEED
 }
 
+.container {
+    width: 960px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.main {
+    float:left;
+    height:100%;
+    width: 80%;
+    margin: 2%;
+    position: relative
+    top: 60px;
+    overflow: hidden;
+}
+
+.left {
+    float:left;
+    width:16%;
+    margin: 2%;
+    height:100%;
+    position: relative;
+    top: 60px;
+    overflow: hidden;
+}
+
+
 .modal {
     border: 2px solid #999999;
     border-radius: 10px;
@@ -93,9 +120,9 @@ a:active {
 #feed {
   width: 640px;
   height: 100%;
+  position:relative;
+  top: 60px;
   margin: 0 auto;
-  position: relative;
-  top: 40px;
   padding: 24px;
   margin-bottom: 60px;
 }
@@ -143,18 +170,6 @@ a:active {
     Return to Feed
     ===============================================
 */
-
-#return-to-feed {
-    position: relative;
-    top: 80px;
-    width: 130px;
-    left: 14%;
-    padding: 10px;
-}
-
-#return-to-feed a {
-    position: center;
-}
 
 
 
