@@ -50,10 +50,11 @@
         streams.users[visitor] = [];
         var $feed = $('#feed');
         var publishedTweets = 0;
+        var updateInterval = 3000;
         $feed.html('');
         $('#return-to-feed').hide();
         updateFeed();
-        feedUpdateId = setInterval(updateFeed, 3000);
+        feedUpdateId = setInterval(updateFeed, updateInterval);
         
         // on user action, displays timeline of selected user
         $(document).on('click', '.user-name', function() {
@@ -74,7 +75,7 @@
           };
           
           prependUserTweetToFeed();
-          feedUpdateId = setInterval(prependUserTweetToFeed, 3000);    
+          feedUpdateId = setInterval(prependUserTweetToFeed, updateInterval);    
         });
 
         // on user action, returns to main feed and continuous update
@@ -84,19 +85,31 @@
           $feed.html('');
           publishedTweets = 0;
           updateFeed();
-          feedUpdateId = setInterval(updateFeed, 3000);
+          feedUpdateId = setInterval(updateFeed, updateInterval);
         });
         
-        // submit and publish user tweet
+        // publish user tweet
         $('#sidebar').on('click', 'button', function(event) {
-          var textarea = $(this).closest('#sidebar').find('textarea');
+          var $textarea = $(this).closest('#sidebar').find('textarea');
           event.preventDefault();
-          tweetText = textarea.val();
+          tweetText = $textarea.val();
           if (tweetText.length > 140) {
             alert("Tweet must be less than 140 characters");
           } else {
             writeTweet(tweetText);
-            textarea.val("What's happening?");
+            $textarea.val("What's happening?");
+          }
+        });
+        
+        // updates character count
+        $('textarea').on('keyup', function() {
+          var characterCount = $(this).val().length;
+          var $characterLimit = $(this).closest('#sidebar').find('#character-limit');
+          $characterLimit.html('<p>' + characterCount + '</p>');
+          if (characterCount > 140) {
+            $characterLimit.css('color', 'red');
+          } else {
+            $characterLimit.css('color', '#4C4C4C');
           }
         });
         
@@ -111,6 +124,9 @@
             
           <textarea>What's happening?</textarea>
           <button>Tweet</button>
+          <div id="character-limit">
+            <p>140</p>
+          </div>
         
           <a id="return-to-feed" href="#">&#8592; Return to Feed</a>
 

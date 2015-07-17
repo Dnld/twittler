@@ -151,7 +151,7 @@ a:active {
 .tweet-message {
     font-size: 24px;
     color: #4C4C4C;
-    width: 75%;
+    width: 580px%;
     margin-top: 10px;
     margin-bottom: 14px;
 }
@@ -200,6 +200,16 @@ a:active {
     color: white;
     background-color: #0080FF;
     padding: 6px 14px;
+    display: inline;
+}
+
+#character-limit {
+    display: inline;
+    float: right;
+    margin-top: 8px;
+    margin-right: 14px;
+    color: #4C4C4C;
+    font-size: 14px;
 }
 
 #return-to-feed {
