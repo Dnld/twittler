@@ -15,7 +15,7 @@
       $(document).ready(function(){
 
         // prepends all tweets from data_generator to feed
-        var prependTweetToFeed = function() {
+        var updateFeed = function() {
           var streamsLength = streams.home.length;
           while (publishedTweets < streamsLength) {
             var tweet = streams.home[publishedTweets];
@@ -37,8 +37,8 @@
         var publishedTweets = 0;
         $feed.html('');
         $('#return-to-feed').hide();
-        prependTweetToFeed();
-        feedUpdateId = setInterval(prependTweetToFeed, 3000);
+        updateFeed();
+        feedUpdateId = setInterval(updateFeed, 3000);
         
         // on user action, displays timeline of selected user
         $(document).on('click', '.user-name', function() {
@@ -47,7 +47,6 @@
             .text().slice(1);
           $('#return-to-feed').show();
           $feed.html('');
-          
           var userPublishedTweets = 0;
           
           var prependUserTweetToFeed = function() {
@@ -69,8 +68,8 @@
           $('#return-to-feed').hide();
           $feed.html('');
           publishedTweets = 0;
-          prependTweetToFeed();
-          feedUpdateId = setInterval(prependTweetToFeed, 3000);
+          updateFeed();
+          feedUpdateId = setInterval(updateFeed, 3000);
         });
         
       });
