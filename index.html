@@ -59,7 +59,7 @@
           feedUpdateId = setInterval(appendUserTweetToFeed, 3000);    
         });
 
-        $('#return-to-feed').on('click', 'a', function() {
+        $(document).on('click', '#return-to-feed', function() {
           clearInterval(feedUpdateId);
           $('#return-to-feed').hide();
           $feed.html('');
@@ -73,9 +73,12 @@
 
     </script>
     
-    
-    <div id="return-to-feed" class="modal"><a href="#">&#8592; Return to Feed</a></div>
-    <div id="feed" class="modal"></div>
+    <div class="container">
+      <div class="left"> 
+        <a id="return-to-feed" class="modal" href="#">&#8592; Return to Feed</a>
+      </div>
+      <div id="feed" class="main modal"></div>
+    </div>>
     
   </body>
 
