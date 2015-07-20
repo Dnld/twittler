@@ -32,30 +32,14 @@
           $tweet.prependTo($feed);
         };
         
-        // allows user to add tweet to streams object
-        var writeTweet = function(message){
-          if(!visitor){
-            throw new Error('set the global visitor property!');
-          }
-          var tweet = {};
-          tweet.user = visitor;
-          tweet.message = message;
-          tweet.created_at = new Date();
-          addTweet(tweet);
+        // resets main feed and runs continuous update
+        var runMainFeed = function() {
+          $feed.html('');
+          $('#return-to-feed').hide();
+          updateFeed();
+          feedUpdateId = setInterval(updateFeed, updateInterval);
         };
 
-        
-        // initialize feed and run continuous update
-        visitor = 'me';
-        streams.users[visitor] = [];
-        var $feed = $('#feed');
-        var publishedTweets = 0;
-        var updateInterval = 3000;
-        $feed.html('');
-        $('#return-to-feed').hide();
-        updateFeed();
-        feedUpdateId = setInterval(updateFeed, updateInterval);
-        
         // on user action, displays timeline of selected user
         $(document).on('click', '.user-name', function() {
           clearInterval(feedUpdateId);
@@ -81,14 +65,11 @@
         // on user action, returns to main feed and continuous update
         $(document).on('click', '#return-to-feed', function() {
           clearInterval(feedUpdateId);
-          $('#return-to-feed').hide();
-          $feed.html('');
           publishedTweets = 0;
-          updateFeed();
-          feedUpdateId = setInterval(updateFeed, updateInterval);
+          runMainFeed();
         });
         
-        // publish user tweet
+        // publish user tweet and update feed
         $('#sidebar').on('click', 'button', function(event) {
           var $textarea = $(this).closest('#sidebar').find('textarea');
           event.preventDefault();
@@ -99,9 +80,24 @@
             writeTweet(tweetText);
             $textarea.val("What's happening?");
           }
+          clearInterval(feedUpdateId);
+          publishedTweets = 0;
+          runMainFeed();
         });
         
-        // updates character count
+        // adds user tweet to streams object
+        var writeTweet = function(message){
+          if(!visitor){
+            throw new Error('set the global visitor property!');
+          }
+          var tweet = {};
+          tweet.user = visitor;
+          tweet.message = message;
+          tweet.created_at = new Date();
+          addTweet(tweet);
+        };
+        
+        // updates character count 
         $('textarea').on('keyup', function() {
           var characterCount = $(this).val().length;
           var $characterLimit = $(this).closest('#sidebar').find('#character-limit');
@@ -112,6 +108,14 @@
             $characterLimit.css('color', '#4C4C4C');
           }
         });
+
+        visitor = 'me';
+        streams.users[visitor] = [];
+        var $feed = $('#feed');
+        var publishedTweets = 0;
+        var updateInterval = 3000;
+        
+        runMainFeed();
         
       });
 
