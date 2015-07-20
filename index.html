@@ -28,7 +28,7 @@
         var publishTweet = function(tweet) {
           var date = ($.format.date(tweet.created_at, "MMMM d h:mm a"));
           var $tweet = $('<div></div>');
-          $tweet.html('<div class="tweet"><a class="user-name" href="#">@' + tweet.user + '</a><p class="tweet-date">' + date + '</p><p class="tweet-message">' + tweet.message + '</p></div>');
+          $tweet.html('<div class="tweet" data-stream-index="' + publishedTweets + '"><a class="user-name" href="#">@' + tweet.user + '</a><p class="tweet-date">' + date + '</p><p class="tweet-message">' + tweet.message + '</p></div>');
           $tweet.prependTo($feed);
         };
         
