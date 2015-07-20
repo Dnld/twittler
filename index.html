@@ -34,7 +34,7 @@
                 
         // returns string with time since tweet
         var timeSince = function(tweetDate) {
-          var seconds = Math.floor((new Date() - date) / 1000);
+          var seconds = Math.floor((new Date() - tweetDate) / 1000);
           
           var interval = (Math.floor(seconds / 31536000));
           if ((Math.floor(seconds / 31536000)) > 1) {
@@ -58,13 +58,24 @@
           }
           return Math.floor(seconds) + " seconds ago";   
         };
+        
+        // updates dates of tweets displayed in feed
+        var updateDates = function() {
+          $('.tweet').each(function() {
+            var tweetIndex = $(this).data('stream-index');
+            var timeSinceTweet = timeSince(streams.home[tweetIndex].created_at);
+            $(this).find('.tweet-date').html(timeSinceTweet);
+          });
+        };
 
         // resets main feed and runs continuous update
-        var runMainFeed = function() {
+        var runFeed = function() {
           $feed.html('');
           $('#return-to-feed').hide();
           updateFeed();
-          feedUpdateId = setInterval(updateFeed, updateInterval);
+          feedUpdateId = setInterval(updateFeed, feedUpdateInterval);
+          updateDates();
+          dateUpdateId = setInterval(updateDates, dateUpdateInterval);
         };
 
         // on user action, displays timeline of selected user
@@ -75,7 +86,6 @@
           $('#return-to-feed').show();
           $feed.html('');
           var userPublishedTweets = 0;
-          
           var prependUserTweetToFeed = function() {
             var userStreamLength = streams.users[userName].length;
             while (userPublishedTweets < userStreamLength) {
@@ -84,16 +94,15 @@
               userPublishedTweets += 1;            
             }
           };
-          
           prependUserTweetToFeed();
-          feedUpdateId = setInterval(prependUserTweetToFeed, updateInterval);    
+          feedUpdateId = setInterval(prependUserTweetToFeed, feedUpdateInterval);    
         });
 
         // on user action, returns to main feed and continuous update
         $(document).on('click', '#return-to-feed', function() {
           clearInterval(feedUpdateId);
           publishedTweets = 0;
-          runMainFeed();
+          runFeed();
         });
         
         // publish user tweet and update feed
@@ -109,7 +118,7 @@
           }
           clearInterval(feedUpdateId);
           publishedTweets = 0;
-          runMainFeed();
+          runFeed();
         });
         
         // adds user tweet to streams object
@@ -140,9 +149,10 @@
         streams.users[visitor] = [];
         var $feed = $('#feed');
         var publishedTweets = 0;
-        var updateInterval = 3000;
+        var feedUpdateInterval = 3000;
+        var dateUpdateInterval = 1000;
         
-        runMainFeed();
+        runFeed();
         
       });
 
