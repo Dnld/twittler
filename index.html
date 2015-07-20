@@ -37,23 +37,23 @@
           var seconds = Math.floor((new Date() - tweetDate) / 1000);
           
           var interval = (Math.floor(seconds / 31536000));
-          if ((Math.floor(seconds / 31536000)) > 1) {
+          if (interval >= 1) {
               return interval + " years ago";
           }
           interval = Math.floor(seconds / 2592000);
-          if (interval > 1) {
+          if (interval >= 1) {
               return interval + " months ago";
           }
           interval = Math.floor(seconds / 86400);
-          if (interval > 1) {
+          if (interval >= 1) {
               return interval + " days ago";
           }
           interval = Math.floor(seconds / 3600);
-          if (interval > 1) {
+          if (interval >= 1) {
               return interval + " hours ago";
           }
           interval = Math.floor(seconds / 60);
-          if (interval > 1) {
+          if (interval >= 1) {
               return interval + " minutes ago";
           }
           return Math.floor(seconds) + " seconds ago";   
@@ -73,9 +73,9 @@
           $feed.html('');
           $('#return-to-feed').hide();
           updateFeed();
-          feedUpdateId = setInterval(updateFeed, feedUpdateInterval);
           updateDates();
-          dateUpdateId = setInterval(updateDates, dateUpdateInterval);
+          feedUpdateId = setInterval(updateFeed, feedUpdateInterval);
+          setInterval(updateDates, dateUpdateInterval);
         };
 
         // on user action, displays timeline of selected user
@@ -85,17 +85,23 @@
             .text().slice(1);
           $('#return-to-feed').show();
           $feed.html('');
-          var userPublishedTweets = 0;
+          publishedTweets = 0;
+          
           var prependUserTweetToFeed = function() {
-            var userStreamLength = streams.users[userName].length;
-            while (userPublishedTweets < userStreamLength) {
-              var tweet = streams.users[userName][userPublishedTweets];
-              publishTweet(tweet);
-              userPublishedTweets += 1;            
+            var streamsLength = streams.home.length;
+            while (publishedTweets < streamsLength) {
+              var tweet = streams.home[publishedTweets];
+              if (tweet.user === userName) {
+                publishTweet(tweet);
+              }
+              publishedTweets += 1;
             }
           };
+          
           prependUserTweetToFeed();
-          feedUpdateId = setInterval(prependUserTweetToFeed, feedUpdateInterval);    
+          updateDates();
+          feedUpdateId = setInterval(prependUserTweetToFeed, feedUpdateInterval);
+          setInterval(updateDates, dateUpdateInterval);         
         });
 
         // on user action, returns to main feed and continuous update
