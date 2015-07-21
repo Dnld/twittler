@@ -111,12 +111,11 @@
               }
               publishedTweets += 1;
             }
+            updateDates();
           };
           
           prependUserTweetToFeed();
-          updateDates();
-          feedUpdateId = setInterval(prependUserTweetToFeed, feedUpdateInterval);
-          setInterval(updateDates, dateUpdateInterval);         
+          feedUpdateId = setInterval(prependUserTweetToFeed, feedUpdateInterval);    
         });
 
         // on user action, returns to main feed and continuous update
